@@ -151,8 +151,8 @@ public final class JavaGenerator {
           .put(ProtoType.UINT32, TypeName.INT)
           .put(ProtoType.UINT64, TypeName.LONG)
           .put(ProtoType.ANY, ClassName.get("com.squareup.wire", "AnyMessage"))
-          .put(ProtoType.DURATION, ClassName.get("java.time", "Duration"))
-          .put(ProtoType.TIMESTAMP, ClassName.get("java.time", "Instant"))
+          .put(ProtoType.DURATION, ClassName.get("com.squareup.wire", "Duration"))
+          .put(ProtoType.TIMESTAMP, ClassName.get("com.squareup.wire", "Instant"))
           .put(ProtoType.EMPTY, ClassName.get("kotlin", "Unit"))
           .put(
               ProtoType.STRUCT_MAP,

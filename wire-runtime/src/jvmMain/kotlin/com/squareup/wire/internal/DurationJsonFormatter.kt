@@ -16,6 +16,7 @@
 package com.squareup.wire.internal
 
 import com.squareup.wire.Duration
+import com.squareup.wire.durationOfSeconds
 
 /**
  * Encode a duration as a JSON string like "1.200s". From the spec:
@@ -29,8 +30,8 @@ import com.squareup.wire.Duration
  */
 object DurationJsonFormatter : JsonFormatter<Duration> {
   override fun toStringOrNumber(value: Duration): String {
-    var seconds = value.seconds
-    var nanos = value.nano
+    var seconds = value.getSeconds()
+    var nanos = value.getNano()
     var prefix = ""
     if (seconds < 0L) {
       if (seconds == Long.MIN_VALUE) {
@@ -61,7 +62,7 @@ object DurationJsonFormatter : JsonFormatter<Duration> {
     val dotIndex = value.indexOf('.')
     if (dotIndex == -1) {
       val seconds = value.substring(0, sIndex).toLong()
-      return Duration.ofSeconds(seconds)
+      return durationOfSeconds(seconds, 0L)
     }
 
     val seconds = value.substring(0, dotIndex).toLong()
@@ -70,6 +71,6 @@ object DurationJsonFormatter : JsonFormatter<Duration> {
     val nanosDigits = sIndex - (dotIndex + 1)
     for (i in nanosDigits until 9) nanos *= 10
     for (i in 9 until nanosDigits) nanos /= 10
-    return Duration.ofSeconds(seconds, nanos)
+    return durationOfSeconds(seconds, nanos)
   }
 }

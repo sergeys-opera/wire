@@ -3,8 +3,10 @@
 package com.squareup.wire.proto3.java.all_types;
 
 import com.squareup.wire.AnyMessage;
+import com.squareup.wire.Duration;
 import com.squareup.wire.EnumAdapter;
 import com.squareup.wire.FieldEncoding;
+import com.squareup.wire.Instant;
 import com.squareup.wire.Message;
 import com.squareup.wire.ProtoAdapter;
 import com.squareup.wire.ProtoReader;
@@ -25,8 +27,6 @@ import java.lang.Override;
 import java.lang.String;
 import java.lang.StringBuilder;
 import java.lang.Void;
-import java.time.Duration;
-import java.time.Instant;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;

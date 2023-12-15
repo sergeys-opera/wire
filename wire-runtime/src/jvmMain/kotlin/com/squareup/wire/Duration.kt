@@ -15,9 +15,45 @@
  */
 package com.squareup.wire
 
-actual typealias Duration = java.time.Duration
+import com.squareup.wire.internal.NANOS_PER_SECOND
+import com.squareup.wire.internal.addExactLong
+import com.squareup.wire.internal.floorDivLong
+import com.squareup.wire.internal.floorModLong
 
-@Suppress("NOTHING_TO_INLINE")
-actual inline fun durationOfSeconds(seconds: Long, nano: Long): Duration {
-  return Duration.ofSeconds(seconds, nano)
+actual class Duration internal constructor(
+  private val seconds: Long,
+  private val nanos: Int,
+) {
+  actual fun getSeconds(): Long = seconds
+  actual fun getNano(): Int = nanos
+
+  override fun equals(other: Any?): Boolean {
+    if (this === other) return true
+    if (javaClass != other?.javaClass) return false
+
+    other as Duration
+
+    if (seconds != other.seconds) return false
+    if (nanos != other.nanos) return false
+
+    return true
+  }
+
+  override fun hashCode(): Int {
+    var result = super.hashCode()
+    result = 31 * result + seconds.hashCode()
+    result = 31 * result + nanos
+    return result
+  }
+
+  override fun toString(): String = "Duration(seconds=$seconds, nanos=$nanos)"
+}
+
+actual fun durationOfSeconds(
+  seconds: Long,
+  nano: Long,
+): Duration {
+  val s = addExactLong(seconds, floorDivLong(nano, NANOS_PER_SECOND))
+  val ns = floorModLong(nano, NANOS_PER_SECOND).toInt()
+  return Duration(s, ns)
 }

@@ -3,6 +3,8 @@
 package squareup.proto3;
 
 import com.squareup.wire.AnyMessage;
+import com.squareup.wire.Duration;
+import com.squareup.wire.Instant;
 import com.squareup.wire.Message;
 import com.squareup.wire.ProtoAdapter;
 import com.squareup.wire.Syntax;
@@ -11,8 +13,6 @@ import com.squareup.wire.internal.Internal;
 import java.lang.Object;
 import java.lang.Override;
 import java.lang.String;
-import java.time.Duration;
-import java.time.Instant;
 import java.util.List;
 import java.util.Map;
 import okio.ByteString;
