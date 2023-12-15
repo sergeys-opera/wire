@@ -32,8 +32,16 @@ public final class com/squareup/wire/AnyMessage$Companion {
 	public final fun pack (Lcom/squareup/wire/Message;)Lcom/squareup/wire/AnyMessage;
 }
 
+public final class com/squareup/wire/Duration {
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getNano ()I
+	public final fun getSeconds ()J
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
 public final class com/squareup/wire/DurationKt {
-	public static final fun durationOfSeconds (JJ)Ljava/time/Duration;
+	public static final fun durationOfSeconds (JJ)Lcom/squareup/wire/Duration;
 }
 
 public abstract class com/squareup/wire/EnumAdapter : com/squareup/wire/ProtoAdapter {
@@ -72,8 +80,16 @@ public final class com/squareup/wire/FieldEncoding : java/lang/Enum {
 public final class com/squareup/wire/FieldEncoding$Companion {
 }
 
+public final class com/squareup/wire/Instant {
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getEpochSecond ()J
+	public final fun getNano ()I
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
 public final class com/squareup/wire/InstantKt {
-	public static final fun ofEpochSecond (JJ)Ljava/time/Instant;
+	public static final fun ofEpochSecond (JJ)Lcom/squareup/wire/Instant;
 }
 
 public abstract class com/squareup/wire/Message : java/io/Serializable {
@@ -408,10 +424,10 @@ public final class com/squareup/wire/internal/DoubleArrayList$Companion {
 
 public final class com/squareup/wire/internal/DurationJsonFormatter : com/squareup/wire/internal/JsonFormatter {
 	public static final field INSTANCE Lcom/squareup/wire/internal/DurationJsonFormatter;
+	public fun fromString (Ljava/lang/String;)Lcom/squareup/wire/Duration;
 	public synthetic fun fromString (Ljava/lang/String;)Ljava/lang/Object;
-	public fun fromString (Ljava/lang/String;)Ljava/time/Duration;
+	public fun toStringOrNumber (Lcom/squareup/wire/Duration;)Ljava/lang/String;
 	public synthetic fun toStringOrNumber (Ljava/lang/Object;)Ljava/lang/Object;
-	public fun toStringOrNumber (Ljava/time/Duration;)Ljava/lang/String;
 }
 
 public final class com/squareup/wire/internal/EnumJsonFormatter : com/squareup/wire/internal/JsonFormatter {
@@ -484,10 +500,10 @@ public final class com/squareup/wire/internal/FloatArrayList$Companion {
 
 public final class com/squareup/wire/internal/InstantJsonFormatter : com/squareup/wire/internal/JsonFormatter {
 	public static final field INSTANCE Lcom/squareup/wire/internal/InstantJsonFormatter;
+	public fun fromString (Ljava/lang/String;)Lcom/squareup/wire/Instant;
 	public synthetic fun fromString (Ljava/lang/String;)Ljava/lang/Object;
-	public fun fromString (Ljava/lang/String;)Ljava/time/Instant;
+	public fun toStringOrNumber (Lcom/squareup/wire/Instant;)Ljava/lang/Object;
 	public synthetic fun toStringOrNumber (Ljava/lang/Object;)Ljava/lang/Object;
-	public fun toStringOrNumber (Ljava/time/Instant;)Ljava/lang/Object;
 }
 
 public final class com/squareup/wire/internal/IntArrayList {

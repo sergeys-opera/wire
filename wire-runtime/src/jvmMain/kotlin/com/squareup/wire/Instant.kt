@@ -15,9 +15,42 @@
  */
 package com.squareup.wire
 
-actual typealias Instant = java.time.Instant
+import com.squareup.wire.internal.NANOS_PER_SECOND
+import com.squareup.wire.internal.addExactLong
+import com.squareup.wire.internal.floorDivLong
+import com.squareup.wire.internal.floorModLong
 
-@Suppress("NOTHING_TO_INLINE")
-actual inline fun ofEpochSecond(epochSecond: Long, nano: Long): Instant {
-  return Instant.ofEpochSecond(epochSecond, nano)
+actual class Instant internal constructor(
+  private val epochSeconds: Long,
+  private val nanos: Int,
+) {
+  actual fun getEpochSecond(): Long = epochSeconds
+  actual fun getNano(): Int = nanos
+
+  override fun equals(other: Any?): Boolean {
+    if (this === other) return true
+    if (javaClass != other?.javaClass) return false
+
+    other as Instant
+
+    if (epochSeconds != other.epochSeconds) return false
+    if (nanos != other.nanos) return false
+
+    return true
+  }
+
+  override fun hashCode(): Int {
+    var result = super.hashCode()
+    result = 31 * result + epochSeconds.hashCode()
+    result = 31 * result + nanos
+    return result
+  }
+
+  override fun toString(): String = "Instant(epochSeconds=$epochSeconds, nanos=$nanos)"
+}
+
+actual fun ofEpochSecond(epochSecond: Long, nano: Long): Instant {
+  val secs = addExactLong(epochSecond, floorDivLong(nano, NANOS_PER_SECOND))
+  val nos = floorModLong(nano, NANOS_PER_SECOND).toInt()
+  return Instant(secs, nos)
 }
